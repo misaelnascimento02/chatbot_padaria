@@ -18,7 +18,7 @@ dispatcher = updater.dispatcher
 def start(update, context):
     assistant = IBMAssistant(update.effective_chat.id)
     
-    response_text = assistant.send_message('')
+    response_text = assistant.send_message('Olá')
     context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
 
 def message(update, context):

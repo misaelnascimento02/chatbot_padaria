@@ -4,10 +4,10 @@
       "intent": "entrega",
       "examples": [
         {
-          "text": "faz entrega?"
+          "text": "aceita pedidos?"
         },
         {
-          "text": "aceita pedidos?"
+          "text": "faz entrega?"
         }
       ],
       "description": ""
@@ -16,16 +16,16 @@
       "intent": "tempoEntrega",
       "examples": [
         {
-          "text": "duração do pedido"
-        },
-        {
-          "text": "quanto tempo para entregar"
+          "text": "qual o tempo de entrega"
         },
         {
           "text": "quanto tempo leva para entrega"
         },
         {
-          "text": "qual o tempo de entrega"
+          "text": "quanto tempo para entregar"
+        },
+        {
+          "text": "duração do pedido"
         }
       ],
       "description": ""
@@ -34,13 +34,13 @@
       "intent": "saudacao",
       "examples": [
         {
-          "text": "boa noite"
-        },
-        {
           "text": "bom dia"
         },
         {
           "text": "ola"
+        },
+        {
+          "text": "boa noite"
         },
         {
           "text": "oi"
@@ -70,13 +70,13 @@
       "intent": "endereco",
       "examples": [
         {
-          "text": "qual a localizacao"
+          "text": "qual o endereco"
         },
         {
           "text": "onde fica"
         },
         {
-          "text": "qual o endereco"
+          "text": "qual a localizacao"
         }
       ],
       "description": ""
@@ -86,9 +86,6 @@
       "examples": [
         {
           "text": "cobra para entregar"
-        },
-        {
-          "text": "tem taxa de envio?"
         },
         {
           "text": "taxa de envio"
@@ -101,6 +98,27 @@
         },
         {
           "text": "qual a taxa de entrega"
+        },
+        {
+          "text": "tem taxa de envio?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "meusPedidos",
+      "examples": [
+        {
+          "text": "meus pedidos"
+        },
+        {
+          "text": "liste meus pedidos"
+        },
+        {
+          "text": "lista dos meus pedidos"
+        },
+        {
+          "text": "o que eu pedi"
         }
       ],
       "description": ""
@@ -109,19 +127,19 @@
       "intent": "cardapio",
       "examples": [
         {
-          "text": "quais as opções"
+          "text": "qual o menu"
         },
         {
           "text": "qual o cardapio"
-        },
-        {
-          "text": "qual o menu"
         },
         {
           "text": "quero pedir"
         },
         {
           "text": "cardapio"
+        },
+        {
+          "text": "quais as opções"
         },
         {
           "text": "menu"
@@ -131,6 +149,15 @@
         },
         {
           "text": "e o cardápio?"
+        },
+        {
+          "text": "quero pizza"
+        },
+        {
+          "text": "quero bolo"
+        },
+        {
+          "text": "quero pão"
         }
       ],
       "description": ""
@@ -148,12 +175,6 @@
       "intent": "rating",
       "examples": [
         {
-          "text": "é de qualidade"
-        },
-        {
-          "text": "nota"
-        },
-        {
           "text": "rating"
         },
         {
@@ -163,10 +184,16 @@
           "text": "qual a avaliação?"
         },
         {
+          "text": "nota"
+        },
+        {
           "text": "os produtos são de qualidade?"
         },
         {
           "text": "seus produtos são bons?"
+        },
+        {
+          "text": "é de qualidade"
         }
       ],
       "description": ""
@@ -178,13 +205,13 @@
           "text": "email"
         },
         {
+          "text": "contato"
+        },
+        {
           "text": "qual o telefone"
         },
         {
           "text": "correio"
-        },
-        {
-          "text": "contato"
         }
       ],
       "description": ""
@@ -193,13 +220,13 @@
       "intent": "horario",
       "examples": [
         {
-          "text": "que hora abre"
-        },
-        {
           "text": "que hora fecha"
         },
         {
           "text": "horario de funcionamento"
+        },
+        {
+          "text": "que hora abre"
         }
       ],
       "description": ""
@@ -241,7 +268,17 @@
           "type": "synonyms",
           "value": "salgado",
           "synonyms": [
-            "salgados"
+            "salgados",
+            "salgado",
+            "coxinha"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "pizza",
+          "synonyms": [
+            "pizza",
+            "pizzas"
           ]
         }
       ],
@@ -280,6 +317,51 @@
   "dialog_nodes": [
     {
       "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1595630741705",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1595630741769",
+      "previous_sibling": "handler_2_1595630741769"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1595630741705",
+      "context": {
+        "tipoProduto": "@tipoProduto"
+      },
+      "conditions": "@tipoProduto",
+      "event_name": "input",
+      "dialog_node": "handler_2_1595630741769"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Por gentileza, informe a quantidade do produto $tipoProduto"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_19_1595630846740",
+      "event_name": "focus",
+      "dialog_node": "handler_21_1595630846740",
+      "previous_sibling": "handler_20_1595630846740"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_19_1595630846740",
+      "context": {
+        "quantidade": "@sys-number"
+      },
+      "conditions": "@sys-number",
+      "event_name": "input",
+      "dialog_node": "handler_20_1595630846740"
+    },
+    {
+      "type": "event_handler",
       "output": {
         "text": {
           "values": [
@@ -304,6 +386,78 @@
       "conditions": "@sys-number",
       "event_name": "input",
       "dialog_node": "handler_7_1595537023850"
+    },
+    {
+      "type": "standard",
+      "title": "limpa variaveis",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_23_1595631061772",
+      "context": {
+        "quantidade": null,
+        "tipoProduto": null
+      },
+      "conditions": "true",
+      "dialog_node": "node_24_1595631061779"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1595630753197",
+      "event_name": "focus",
+      "dialog_node": "handler_6_1595630753201",
+      "previous_sibling": "handler_1_1595630753201"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1595630753197",
+      "context": {
+        "quantidade": "@sys-number"
+      },
+      "conditions": "@sys-number",
+      "event_name": "input",
+      "dialog_node": "handler_1_1595630753201"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Poxa, você ainda não pediu!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1595853935401",
+      "conditions": "anything_else",
+      "dialog_node": "node_1_1595854070522",
+      "previous_sibling": "node_6_1595854777483"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Você recentemente pediu conosco:\n$ultimosPedidos."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1595853935401",
+      "conditions": "$ultimosPedidos",
+      "dialog_node": "node_6_1595854777483"
     },
     {
       "type": "event_handler",
@@ -348,7 +502,9 @@
         }
       },
       "next_step": {
-        "behavior": "skip_user_input"
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_23_1595631061772"
       },
       "conditions": "true",
       "dialog_node": "node_1_1595534751970"
@@ -397,6 +553,10 @@
         ]
       },
       "parent": "node_1_1595534751970",
+      "context": {},
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
       "conditions": "$quantidade and $tipoProduto",
       "dialog_node": "node_10_1595598645826",
       "previous_sibling": "handler_4_1595536729583"
@@ -461,40 +621,45 @@
       "dialog_node": "handler_4_1595536729583"
     },
     {
-      "type": "response_condition",
-      "output": {
-        "generic": [
-          {
-            "values": [
-              {
-                "text": "fornecemos:\n$resposta.\nMe diga qual deseja?"
-              }
-            ],
-            "response_type": "text",
-            "selection_policy": "sequential"
-          }
-        ]
-      },
-      "parent": "node_3_1594147176020",
-      "disabled": true,
-      "dialog_node": "response_8_1595533684348",
-      "previous_sibling": "node_7_1595534117647"
+      "type": "slot",
+      "output": {},
+      "parent": "node_14_1595630846730",
+      "variable": "$quantidade",
+      "dialog_node": "slot_19_1595630846740",
+      "previous_sibling": "slot_16_1595630846740"
     },
     {
       "type": "slot",
-      "parent": "node_3_1594147176020",
-      "dialog_node": "slot_10_1595533653156",
-      "previous_sibling": "response_8_1595533684348"
+      "output": {},
+      "parent": "node_14_1595630846730",
+      "variable": "$tipoProduto",
+      "dialog_node": "slot_16_1595630846740",
+      "previous_sibling": "handler_6_1595631678889"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "ok, estaremos sempre a sua disposição!"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_14_1595630846730",
+      "conditions": "#cancelar or #desistirPedido",
+      "event_name": "generic",
+      "dialog_node": "handler_6_1595631678889"
     },
     {
       "type": "standard",
-      "title": "apresenta cardapio para o usuario",
+      "title": "exibe pedido cliente",
       "output": {
         "generic": [
           {
             "values": [
               {
-                "text": "fornecemos: \n$nomesProdutos.\nme diga qual deseja!"
+                "text": "Muito obrigado por seu pedido!\nNúmero: $numeroPedido\nproduto: $tipoProduto\nunidades: $quantidade"
               }
             ],
             "response_type": "text",
@@ -502,9 +667,25 @@
           }
         ]
       },
-      "parent": "node_3_1594147176020",
+      "parent": "node_4_1595631275155",
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
       "conditions": "true",
-      "dialog_node": "node_7_1595534117647"
+      "dialog_node": "node_23_1595631061772"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1595630593324",
+      "variable": "$quantidade",
+      "dialog_node": "slot_8_1595630753197",
+      "previous_sibling": "slot_1_1595630741705"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1595630593324",
+      "variable": "$tipoProduto",
+      "dialog_node": "slot_1_1595630741705"
     },
     {
       "type": "event_handler",
@@ -533,18 +714,46 @@
       "dialog_node": "handler_7_1595551237245"
     },
     {
-      "type": "event_handler",
-      "output": {},
-      "parent": "slot_10_1595533653156",
-      "event_name": "focus",
-      "dialog_node": "handler_9_1595533653220",
-      "previous_sibling": "handler_2_1595533653220"
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ok"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1595598645826",
+      "context": {
+        "quantidade": null,
+        "tipoProduto": null
+      },
+      "conditions": "true",
+      "dialog_node": "node_6_1595612376240"
     },
     {
       "type": "event_handler",
-      "parent": "slot_10_1595533653156",
+      "output": {},
+      "parent": "slot_16_1595630846740",
+      "event_name": "focus",
+      "dialog_node": "handler_18_1595630846740",
+      "previous_sibling": "handler_17_1595630846740"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_16_1595630846740",
+      "context": {
+        "tipoProduto": "@tipoProduto"
+      },
+      "conditions": "@tipoProduto",
       "event_name": "input",
-      "dialog_node": "handler_2_1595533653220"
+      "dialog_node": "handler_17_1595630846740"
     },
     {
       "type": "standard",
@@ -564,6 +773,107 @@
       "conditions": "#taxaEntrega",
       "dialog_node": "node_2_1594149745473",
       "previous_sibling": "node_1_1592871659649"
+    },
+    {
+      "type": "standard",
+      "title": "cancelar",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Obrigado! até logo."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#cancelar",
+      "dialog_node": "node_8_1592866272722",
+      "previous_sibling": "node_3_1595853935401"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "name": "listarUltimosPedidos",
+          "type": "client",
+          "result_variable": "ultimosPedidos"
+        }
+      ],
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#meusPedidos",
+      "dialog_node": "node_3_1595853935401",
+      "previous_sibling": "node_7_1595534117647"
+    },
+    {
+      "type": "standard",
+      "title": "apresenta cardapio para o usuario",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fornecemos: \nPães,\nBolos,\nSalgados e pizza\nme diga qual deseja!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#cardapio",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_7_1595534117647",
+      "previous_sibling": "node_14_1595630846730"
+    },
+    {
+      "type": "frame",
+      "title": "Pedido direto",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "name": "gerarPedido",
+          "type": "client",
+          "parameters": {
+            "produto": "$tipoProduto",
+            "quantidade": "$quantidade"
+          },
+          "result_variable": "numeroPedido"
+        }
+      ],
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_23_1595631061772"
+      },
+      "conditions": "#cardapio && @tipoProduto && @sys-number",
+      "dialog_node": "node_9_1595630593324",
+      "previous_sibling": "node_4_1595631275155"
     },
     {
       "type": "standard",
@@ -594,13 +904,12 @@
     },
     {
       "type": "standard",
-      "title": "cancelar",
       "output": {
         "generic": [
           {
             "values": [
               {
-                "text": "Obrigado! até logo."
+                "text": "entregamos de domingo a domingo das 8h as 18!"
               }
             ],
             "response_type": "text",
@@ -608,29 +917,41 @@
           }
         ]
       },
-      "conditions": "#cancelar",
-      "dialog_node": "node_8_1592866272722",
-      "previous_sibling": "node_3_1594147176020"
+      "conditions": "#entrega",
+      "dialog_node": "node_10_1592865224232",
+      "previous_sibling": "node_4_1592871835434"
     },
     {
-      "type": "standard",
-      "title": "Bem-vindo",
+      "type": "frame",
+      "title": "solicita quantidade do produto desejado antes de gerar pedido",
       "output": {
         "generic": [
           {
-            "values": [
-              {
-                "text": "Ola! Bem vindo a padaria de teste do Misael! faça sua pergunta!"
-              }
-            ],
+            "values": [],
             "response_type": "text",
             "selection_policy": "sequential"
           }
         ]
       },
-      "conditions": "#saudacao || welcome",
-      "dialog_node": "Bem-vindo",
-      "previous_sibling": "node_4_1592871835434"
+      "actions": [
+        {
+          "name": "gerarPedido",
+          "type": "client",
+          "parameters": {
+            "produto": "$tipoProduto",
+            "quantidade": "$quantidade"
+          },
+          "result_variable": "numeroPedido"
+        }
+      ],
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_23_1595631061772"
+      },
+      "conditions": "#cardapio && @tipoProduto",
+      "dialog_node": "node_14_1595630846730",
+      "previous_sibling": "node_9_1595630593324"
     },
     {
       "type": "standard",
@@ -658,7 +979,7 @@
           {
             "values": [
               {
-                "text": "entregamos de domingo a domingo das 8h as 18!"
+                "text": "os pedidos são entregues numa media de 45 minutos."
               }
             ],
             "response_type": "text",
@@ -666,8 +987,9 @@
           }
         ]
       },
-      "conditions": "#entrega",
-      "dialog_node": "node_10_1592865224232",
+      "conditions": "#tempoEntrega",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_4_1592871835434",
       "previous_sibling": "Bem-vindo"
     },
     {
@@ -729,43 +1051,9 @@
     },
     {
       "type": "standard",
-      "title": "pesquisa os produtos cadastrados",
-      "output": {
-        "generic": [
-          {
-            "values": [
-              {
-                "text": ""
-              }
-            ],
-            "response_type": "text",
-            "selection_policy": "sequential"
-          }
-        ]
-      },
-      "actions": [
-        {
-          "name": "consultarProdutos",
-          "type": "client",
-          "result_variable": "nomesProdutos"
-        }
-      ],
-      "context": {
-        "quantidade": null,
-        "tipoProduto": null,
-        "nomesProdutos": null,
-        "produtoDesconhecido": null
-      },
-      "metadata": {
-        "_customization": {
-          "mcr": false
-        }
-      },
-      "next_step": {
-        "behavior": "skip_user_input"
-      },
-      "conditions": "#cardapio",
-      "dialog_node": "node_3_1594147176020",
+      "title": "jump_to - apresenta o pedido gerado e limpa variaveis",
+      "conditions": "false",
+      "dialog_node": "node_4_1595631275155",
       "previous_sibling": "node_10_1594148302122"
     },
     {
@@ -789,12 +1077,13 @@
     },
     {
       "type": "standard",
+      "title": "Bem-vindo",
       "output": {
         "generic": [
           {
             "values": [
               {
-                "text": "os pedidos são entregues numa media de 45 minutos."
+                "text": "Olá! Bem vindo a padaria do Misael! o que deseja?\nTempo de entrega;\nHorário de funcionamento;\nFazer um pedido(ação);\nListar seus pedidos(ação);\nNosso rating;\nNosso Contato;\nTaxa de entrega."
               }
             ],
             "response_type": "text",
@@ -802,8 +1091,8 @@
           }
         ]
       },
-      "conditions": "#tempoEntrega",
-      "dialog_node": "node_4_1592871835434"
+      "conditions": "#saudacao || welcome",
+      "dialog_node": "Bem-vindo"
     }
   ],
   "counterexamples": [],
